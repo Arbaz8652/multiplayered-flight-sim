@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: multiplayer_pg
+    restart: always
+    environment:
+      POSTGRES_USER: multiplayer_api
+      POSTGRES_PASSWORD: Pass1234
+      POSTGRES_DB: multiplayer_game
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data:delegated
+      - ./postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf
+    networks:
+      - multiplayer_network
+
+volumes:
+  pgdata:
+
+networks:
+  multiplayer_network:
